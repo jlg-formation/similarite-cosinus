@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { EngineConfig, EngineType, OpenAIModel } from '../types'
+import { OPENAI_MAX_DIMENSIONS } from '../types'
 
 interface Props {
   config: EngineConfig
@@ -93,7 +94,7 @@ export default function EngineSelector({ config, onChange }: Props) {
             <select
               className="field-input"
               value={config.openaiModel}
-              onChange={(e) => set({ openaiModel: e.target.value as OpenAIModel })}
+              onChange={(e) => set({ openaiModel: e.target.value as OpenAIModel, openaiDimensions: null })}
             >
               {OPENAI_MODELS.map((m) => (
                 <option key={m} value={m}>
@@ -102,6 +103,37 @@ export default function EngineSelector({ config, onChange }: Props) {
               ))}
             </select>
           </label>
+
+          {OPENAI_MAX_DIMENSIONS[config.openaiModel] !== null && (
+            <label className="field-group">
+              <span className="field-label">
+                Dimensions{' '}
+                <span className="field-hint">
+                  (1 – {OPENAI_MAX_DIMENSIONS[config.openaiModel]}, défaut = max)
+                </span>
+              </span>
+              <input
+                type="number"
+                className="field-input"
+                min={1}
+                max={OPENAI_MAX_DIMENSIONS[config.openaiModel]!}
+                value={config.openaiDimensions ?? ''}
+                placeholder={String(OPENAI_MAX_DIMENSIONS[config.openaiModel])}
+                onChange={(e) => {
+                  const v = e.target.value === '' ? null : Math.min(
+                    Math.max(1, parseInt(e.target.value, 10)),
+                    OPENAI_MAX_DIMENSIONS[config.openaiModel]!,
+                  )
+                  set({ openaiDimensions: isNaN(v as number) ? null : v })
+                }}
+              />
+              <p className="field-note">
+                Matryoshka Representation Learning — les premières dimensions concentrent l'information.
+                Réduire accélère le calcul sans trop dégrader la qualité.
+              </p>
+            </label>
+          )}
+
           <p className="field-note warn">
             ⚠ La clé API est stockée en <code>localStorage</code>. Toute personne ayant accès à ce
             navigateur peut la lire.

@@ -65,6 +65,7 @@ async function fetchOpenAIEmbeddings(
   const body = {
     model: config.openaiModel,
     input: texts,
+    ...(config.openaiDimensions ? { dimensions: config.openaiDimensions } : {}),
   }
 
   const id = ++logCounter

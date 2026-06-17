@@ -18,6 +18,7 @@ const DEFAULT_CONFIG: EngineConfig = {
   lmstudioModel: '',
   openaiKey: '',
   openaiModel: 'text-embedding-3-small',
+  openaiDimensions: null,
 }
 
 function loadConfig(): EngineConfig {

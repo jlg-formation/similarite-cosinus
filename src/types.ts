@@ -11,6 +11,13 @@ export interface EngineConfig {
   lmstudioModel: string
   openaiKey: string
   openaiModel: OpenAIModel
+  openaiDimensions: number | null
+}
+
+export const OPENAI_MAX_DIMENSIONS: Record<OpenAIModel, number | null> = {
+  'text-embedding-ada-002': null,
+  'text-embedding-3-small': 1536,
+  'text-embedding-3-large': 3072,
 }
 
 export interface HttpLog {
