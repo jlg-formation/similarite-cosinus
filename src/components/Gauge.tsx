@@ -1,3 +1,5 @@
+import { similarityLabel } from "../utils/similarityLabel";
+
 interface Props {
   score: number;
 }
@@ -43,19 +45,7 @@ export default function Gauge({ score: rawScore }: Props) {
 
   const needleColor = scoreToColor(score);
 
-  // Label
-  const label =
-    score > 0.8
-      ? "Très similaires"
-      : score > 0.5
-        ? "Similaires"
-        : score > 0.2
-          ? "Quelque peu liés"
-          : score > -0.2
-            ? "Peu liés"
-            : score > -0.5
-              ? "Dissemblables"
-              : "Opposés";
+  const label = similarityLabel(score);
 
   return (
     <div className="gauge-wrap">

@@ -65,6 +65,15 @@ export default function PedagogySection() {
       </div>
 
       <div className="formula-detail">
+        <h3>La similarité n'est pas transitive</h3>
+        <p>
+          Avec trois vecteurs à 0°, 45° et 90° : cos(u, v) = 0,71 et cos(v, w) = 0,71, mais cos(u,
+          w) = 0. Deux textes proches d'un même troisième peuvent être éloignés l'un de l'autre.
+        </p>
+        <p>La page « 3 phrases » affiche les scores des trois paires : A–B, A–C et B–C.</p>
+      </div>
+
+      <div className="formula-detail">
         <h3>Formule développée</h3>
         <div className="formula-code">
           <code>cos(θ) = (Σ Aᵢ·Bᵢ) / (√(Σ Aᵢ²) × √(Σ Bᵢ²))</code>

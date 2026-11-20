@@ -5,6 +5,7 @@ import "./index.css";
 import Layout from "./App";
 import { AppProvider } from "./context/AppContext";
 import HomePage from "./pages/HomePage";
+import TriplePage from "./pages/TriplePage";
 import ConfigPage from "./pages/ConfigPage";
 import DocsPage from "./pages/DocsPage";
 
@@ -15,6 +16,7 @@ createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
+            <Route path="trois" element={<TriplePage />} />
             <Route path="config" element={<ConfigPage />} />
             <Route path="docs" element={<DocsPage />} />
           </Route>

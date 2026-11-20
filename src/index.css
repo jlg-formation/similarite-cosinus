@@ -231,10 +231,11 @@ body {
   flex-direction: column;
   min-height: 0;
 }
-.col-textarea {
+.text-area.col-textarea {
   flex: 1;
+  min-height: 0;
   resize: none;
-  min-height: 80px;
+  overflow-y: auto;
 }
 
 .btn-full {
@@ -252,6 +253,10 @@ body {
   justify-content: center;
   gap: 0.5rem;
   min-height: 0;
+}
+
+.col-centered.col-top {
+  justify-content: flex-start;
 }
 
 .col-placeholder {
@@ -629,12 +634,85 @@ select.field-input {
   width: 100%;
 }
 
-.vec-caption {
-  text-align: center;
-  font-size: 0.95rem;
+.pair-scores {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.col-rows {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.col-action {
+  flex-shrink: 0;
+  height: 3rem;
+  display: flex;
+}
+.col-action .btn-full {
+  height: 100%;
+}
+.col-rows .pair-scores {
+  flex: 1;
+}
+.pair-row {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.pair-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+.pair-card {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.85rem;
+}
+.pair-card-head {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--color-text-muted);
-  margin-top: 0.5rem;
-  line-height: 1.5;
+}
+.pair-card-score {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.pair-card-verdict {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+.pair-bar {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #ef4444, #eab308, #22c55e);
+}
+.pair-bar-marker {
+  position: absolute;
+  top: -3px;
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--color-text);
+  transform: translateX(-50%);
 }
 
 /* ── Log panel (right sidebar) ───────────────────────────────────────────── */

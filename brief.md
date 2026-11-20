@@ -57,7 +57,7 @@ Section intégrée à la page comprenant :
 - Authentification ou gestion d'utilisateurs.
 - Historique des calculs (pas de persistance des résultats entre sessions).
 - Support d'autres moteurs d'embedding (Ollama, Cohere, Mistral…) — uniquement LMStudio et OpenAI.
-- Mode multi-paires (une seule paire de textes à la fois).
+- Mode multi-paires, sauf la page « 3 phrases » (route `/trois`), qui compare trois textes.
 - Backend serveur — l'application est 100 % front-end statique.
 
 ## Utilisateurs cibles

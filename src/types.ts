@@ -38,3 +38,9 @@ export interface ComputeResult {
   vector1: number[];
   vector2: number[];
 }
+
+export interface TripleResult {
+  vectors: [number[], number[], number[]];
+  /** Paires dans l'ordre : A-B, A-C, B-C. */
+  scores: [number, number, number];
+}

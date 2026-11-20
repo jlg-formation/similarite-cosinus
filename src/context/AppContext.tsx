@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import type { EngineConfig, ComputeResult, HttpLog } from "../types";
 import { fetchEmbeddings } from "../services/embeddingService";
 import { cosineSimilarity } from "../utils/cosineSimilarity";
+import { PAIR_DEFAULTS } from "../data/defaultTexts";
 
 const LS_KEY = "cosine-sim-engine-config";
 
@@ -36,6 +37,7 @@ interface AppState {
   error: string | null;
   logs: HttpLog[];
   clearLogs: () => void;
+  addLog: (entry: HttpLog) => void;
   sidebarOpen: boolean;
   setSidebarOpen: (v: boolean | ((p: boolean) => boolean)) => void;
   handleCalculate: () => void;
@@ -45,8 +47,8 @@ const AppContext = createContext<AppState | null>(null);
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [config, setConfigState] = useState<EngineConfig>(loadConfig);
-  const [text1, setText1] = useState("Le chat dort sur le canapé.");
-  const [text2, setText2] = useState("Le félin sommeille sur le sofa.");
+  const [text1, setText1] = useState(PAIR_DEFAULTS[0]);
+  const [text2, setText2] = useState(PAIR_DEFAULTS[1]);
   const [result, setResult] = useState<ComputeResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -87,6 +89,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         error,
         logs,
         clearLogs: () => setLogs([]),
+        addLog: (entry) => setLogs((prev) => [...prev, entry]),
         sidebarOpen,
         setSidebarOpen,
         handleCalculate,

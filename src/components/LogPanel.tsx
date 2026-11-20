@@ -150,10 +150,7 @@ export default function LogPanel({ logs, onClear }: Props) {
   return (
     <div className="log-panel-sidebar">
       <div className="log-panel-top">
-        <span className="log-panel-heading">
-          Échanges HTTP
-          {logs.length > 0 && <span className="badge">{logs.length}</span>}
-        </span>
+        <span className="log-panel-heading">Échanges HTTP</span>
         {logs.length > 0 && (
           <button className="btn-ghost" onClick={onClear}>
             Effacer
@@ -165,7 +162,7 @@ export default function LogPanel({ logs, onClear }: Props) {
         {logs.length === 0 ? (
           <p className="log-empty">Les échanges HTTP apparaîtront ici après chaque calcul.</p>
         ) : (
-          [...logs].reverse().map((log) => <LogEntry key={log.id} log={log} />)
+          logs.slice(-1).map((log) => <LogEntry key={log.id} log={log} />)
         )}
       </div>
     </div>

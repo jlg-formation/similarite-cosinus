@@ -3,10 +3,10 @@ import type { EngineConfig, HttpLog } from "../types";
 let logCounter = 0;
 
 export async function fetchEmbeddings(
-  texts: [string, string],
+  texts: string[],
   config: EngineConfig,
   onLog: (entry: HttpLog) => void,
-): Promise<[number[], number[]]> {
+): Promise<number[][]> {
   if (config.type === "lmstudio") {
     return fetchLMStudioEmbeddings(texts, config, onLog);
   }
@@ -14,10 +14,10 @@ export async function fetchEmbeddings(
 }
 
 async function fetchLMStudioEmbeddings(
-  texts: [string, string],
+  texts: string[],
   config: EngineConfig,
   onLog: (entry: HttpLog) => void,
-): Promise<[number[], number[]]> {
+): Promise<number[][]> {
   const base = config.lmstudioUrl.replace(/\/$/, "");
   const url = `${base}/v1/embeddings`;
   const body = {
@@ -54,15 +54,14 @@ async function fetchLMStudioEmbeddings(
 
   onLog({ id, timestamp, engine, request: { url, method: "POST", body }, response: data });
 
-  const result = data as { data: { embedding: number[] }[] };
-  return [result.data[0].embedding, result.data[1].embedding];
+  return orderEmbeddings(data, texts.length);
 }
 
 async function fetchOpenAIEmbeddings(
-  texts: [string, string],
+  texts: string[],
   config: EngineConfig,
   onLog: (entry: HttpLog) => void,
-): Promise<[number[], number[]]> {
+): Promise<number[][]> {
   const url = "https://api.openai.com/v1/embeddings";
   const body = {
     model: config.openaiModel,
@@ -108,6 +107,18 @@ async function fetchOpenAIEmbeddings(
 
   onLog({ id, timestamp, engine, request: { url, method: "POST", body }, response: data });
 
-  const result = data as { data: { embedding: number[] }[] };
-  return [result.data[0].embedding, result.data[1].embedding];
+  return orderEmbeddings(data, texts.length);
+}
+
+// Réordonne par `index` : l'ordre de réponse n'est pas garanti.
+function orderEmbeddings(data: unknown, count: number): number[][] {
+  const items = (data as { data?: { index: number; embedding: number[] }[] }).data ?? [];
+  const out: (number[] | undefined)[] = Array(count);
+  for (const item of items) {
+    if (item.index < count) out[item.index] = item.embedding;
+  }
+  if (out.some((v) => v === undefined)) {
+    throw new Error(`Embeddings incomplets : ${items.length} reçu(s), ${count} attendu(s).`);
+  }
+  return out as number[][];
 }

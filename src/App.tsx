@@ -17,7 +17,13 @@ export default function Layout() {
               end
               className={({ isActive }) => `nav-link${isActive ? " active" : ""}`}
             >
-              Calculer
+              2 phrases
+            </NavLink>
+            <NavLink
+              to="/trois"
+              className={({ isActive }) => `nav-link${isActive ? " active" : ""}`}
+            >
+              3 phrases
             </NavLink>
             <NavLink
               to="/config"
