@@ -1,51 +1,56 @@
-import { useState } from 'react'
-import type { HttpLog } from '../types'
+import { useState } from "react";
+import type { HttpLog } from "../types";
 
 /* ── JSON Tree ────────────────────────────────────────────────────────────── */
 
 function PrimitiveValue({ value }: { value: unknown }) {
-  if (value === null) return <span className="jv-null">null</span>
-  if (typeof value === 'boolean') return <span className="jv-bool">{String(value)}</span>
-  if (typeof value === 'number') return <span className="jv-num">{value}</span>
-  if (typeof value === 'string') {
-    const s = value.length > 120 ? value.slice(0, 120) + '…' : value
-    return <span className="jv-str">"{s}"</span>
+  if (value === null) return <span className="jv-null">null</span>;
+  if (typeof value === "boolean") return <span className="jv-bool">{String(value)}</span>;
+  if (typeof value === "number") return <span className="jv-num">{value}</span>;
+  if (typeof value === "string") {
+    const s = value.length > 120 ? value.slice(0, 120) + "…" : value;
+    return <span className="jv-str">"{s}"</span>;
   }
-  return <span className="jv-null">undefined</span>
+  return <span className="jv-null">undefined</span>;
 }
 
 function JsonNode({ data, depth = 0 }: { data: unknown; depth?: number }) {
   // Auto-collapse nodes at depth ≥ 2 (keeps embedding arrays collapsed by default)
-  const [open, setOpen] = useState(depth < 2)
+  const [open, setOpen] = useState(depth < 2);
 
-  if (data === null || typeof data !== 'object') {
-    return <PrimitiveValue value={data} />
+  if (data === null || typeof data !== "object") {
+    return <PrimitiveValue value={data} />;
   }
 
-  const isArr = Array.isArray(data)
+  const isArr = Array.isArray(data);
   const entries: [string, unknown][] = isArr
     ? (data as unknown[]).map((v, i) => [String(i), v])
-    : Object.entries(data as Record<string, unknown>)
+    : Object.entries(data as Record<string, unknown>);
 
-  const ob = isArr ? '[' : '{'
-  const cb = isArr ? ']' : '}'
+  const ob = isArr ? "[" : "{";
+  const cb = isArr ? "]" : "}";
 
   if (entries.length === 0) {
-    return <span className="jv-bracket">{ob}{cb}</span>
+    return (
+      <span className="jv-bracket">
+        {ob}
+        {cb}
+      </span>
+    );
   }
 
   const summary = isArr
-    ? `${entries.length} élément${entries.length > 1 ? 's' : ''}`
-    : `${entries.length} prop${entries.length > 1 ? 's' : ''}`
+    ? `${entries.length} élément${entries.length > 1 ? "s" : ""}`
+    : `${entries.length} prop${entries.length > 1 ? "s" : ""}`;
 
   return (
     <>
       <button
         className="jv-toggle"
         onClick={() => setOpen((o) => !o)}
-        title={open ? 'Réduire' : 'Développer'}
+        title={open ? "Réduire" : "Développer"}
       >
-        {open ? '▽' : '▷'}
+        {open ? "▽" : "▷"}
       </button>
       <span className="jv-bracket">{ob}</span>
 
@@ -69,15 +74,15 @@ function JsonNode({ data, depth = 0 }: { data: unknown; depth?: number }) {
         </>
       ) : (
         <>
-          {' '}
+          {" "}
           <span className="jv-summary" onClick={() => setOpen(true)}>
             {summary}
-          </span>{' '}
+          </span>{" "}
           <span className="jv-bracket">{cb}</span>
         </>
       )}
     </>
-  )
+  );
 }
 
 function JsonBlock({ value }: { value: unknown }) {
@@ -85,24 +90,24 @@ function JsonBlock({ value }: { value: unknown }) {
     <div className="jv-root">
       <JsonNode data={value} depth={0} />
     </div>
-  )
+  );
 }
 
 /* ── Log entries ──────────────────────────────────────────────────────────── */
 
 function LogEntry({ log }: { log: HttpLog }) {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
 
   return (
-    <div className={`log-entry${log.error ? ' log-error' : ''}`}>
+    <div className={`log-entry${log.error ? " log-error" : ""}`}>
       <button className="log-header" onClick={() => setOpen((v) => !v)}>
         <span className="log-id">#{log.id}</span>
         <span className="log-engine">{log.engine}</span>
-        <span className={`log-status${log.error ? ' error' : ' ok'}`}>{log.error ? '✗' : '✓'}</span>
-        <span className="log-chevron">{open ? '▲' : '▼'}</span>
+        <span className={`log-status${log.error ? " error" : " ok"}`}>{log.error ? "✗" : "✓"}</span>
+        <span className="log-chevron">{open ? "▲" : "▼"}</span>
       </button>
       <div className="log-time-row">
-        {log.timestamp.replace('T', ' ').replace('Z', '').slice(0, 19)}
+        {log.timestamp.replace("T", " ").replace("Z", "").slice(0, 19)}
       </div>
 
       {open && (
@@ -131,14 +136,14 @@ function LogEntry({ log }: { log: HttpLog }) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 /* ── Panel ────────────────────────────────────────────────────────────────── */
 
 interface Props {
-  logs: HttpLog[]
-  onClear: () => void
+  logs: HttpLog[];
+  onClear: () => void;
 }
 
 export default function LogPanel({ logs, onClear }: Props) {
@@ -158,13 +163,11 @@ export default function LogPanel({ logs, onClear }: Props) {
 
       <div className="log-list">
         {logs.length === 0 ? (
-          <p className="log-empty">
-            Les échanges HTTP apparaîtront ici après chaque calcul.
-          </p>
+          <p className="log-empty">Les échanges HTTP apparaîtront ici après chaque calcul.</p>
         ) : (
           [...logs].reverse().map((log) => <LogEntry key={log.id} log={log} />)
         )}
       </div>
     </div>
-  )
+  );
 }

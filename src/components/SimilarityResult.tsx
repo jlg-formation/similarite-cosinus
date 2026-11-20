@@ -1,14 +1,14 @@
-import type { ComputeResult } from '../types'
-import Gauge from './Gauge'
-import VectorVisualization from './VectorVisualization'
+import type { ComputeResult } from "../types";
+import Gauge from "./Gauge";
+import VectorVisualization from "./VectorVisualization";
 
 interface Props {
-  result: ComputeResult
+  result: ComputeResult;
 }
 
 export default function SimilarityResult({ result }: Props) {
-  const { score, vector1, vector2 } = result
-  const dim = vector1.length
+  const { score, vector1, vector2 } = result;
+  const dim = vector1.length;
 
   return (
     <section className="card result-section">
@@ -28,5 +28,5 @@ export default function SimilarityResult({ result }: Props) {
         </div>
       </div>
     </section>
-  )
+  );
 }

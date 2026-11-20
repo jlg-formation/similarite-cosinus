@@ -1,11 +1,11 @@
 interface Props {
-  text1: string
-  text2: string
-  onText1Change: (v: string) => void
-  onText2Change: (v: string) => void
-  onCalculate: () => void
-  loading: boolean
-  rows?: number
+  text1: string;
+  text2: string;
+  onText1Change: (v: string) => void;
+  onText2Change: (v: string) => void;
+  onCalculate: () => void;
+  loading: boolean;
+  rows?: number;
 }
 
 export default function TextInputs({
@@ -17,7 +17,7 @@ export default function TextInputs({
   loading,
   rows = 5,
 }: Props) {
-  const canCalculate = text1.trim().length > 0 && text2.trim().length > 0 && !loading
+  const canCalculate = text1.trim().length > 0 && text2.trim().length > 0 && !loading;
 
   return (
     <section className="card text-inputs-section">
@@ -53,10 +53,10 @@ export default function TextInputs({
               <span className="spinner" /> Calcul en cours…
             </>
           ) : (
-            'Calculer la similarité'
+            "Calculer la similarité"
           )}
         </button>
       </div>
     </section>
-  )
+  );
 }

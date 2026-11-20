@@ -1,8 +1,8 @@
-import { useApp } from '../context/AppContext'
-import EngineSelector from '../components/EngineSelector'
+import { useApp } from "../context/AppContext";
+import EngineSelector from "../components/EngineSelector";
 
 export default function ConfigPage() {
-  const { config, setConfig } = useApp()
+  const { config, setConfig } = useApp();
 
   return (
     <div className="page-layout">
@@ -14,5 +14,5 @@ export default function ConfigPage() {
       </div>
       <EngineSelector config={config} onChange={setConfig} />
     </div>
-  )
+  );
 }

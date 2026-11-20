@@ -1,4 +1,4 @@
-import PedagogySection from '../components/PedagogySection'
+import PedagogySection from "../components/PedagogySection";
 
 export default function DocsPage() {
   return (
@@ -11,5 +11,5 @@ export default function DocsPage() {
       </div>
       <PedagogySection />
     </div>
-  )
+  );
 }

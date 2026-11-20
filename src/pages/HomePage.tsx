@@ -1,6 +1,6 @@
-import { useApp } from '../context/AppContext'
-import Gauge from '../components/Gauge'
-import VectorVisualization from '../components/VectorVisualization'
+import { useApp } from "../context/AppContext";
+import Gauge from "../components/Gauge";
+import VectorVisualization from "../components/VectorVisualization";
 
 function ColPlaceholder({ icon, text }: { icon: string; text: string }) {
   return (
@@ -8,16 +8,15 @@ function ColPlaceholder({ icon, text }: { icon: string; text: string }) {
       <span className="col-placeholder-icon">{icon}</span>
       <p>{text}</p>
     </div>
-  )
+  );
 }
 
 export default function HomePage() {
-  const { text1, text2, setText1, setText2, result, loading, error, handleCalculate } = useApp()
-  const canCalculate = text1.trim().length > 0 && text2.trim().length > 0 && !loading
+  const { text1, text2, setText1, setText2, result, loading, error, handleCalculate } = useApp();
+  const canCalculate = text1.trim().length > 0 && text2.trim().length > 0 && !loading;
 
   return (
     <div className="home-3col">
-
       {/* ── Col 1 : Textes ───────────────────────────────────────────────── */}
       <section className="home-col home-col-inputs">
         <h2 className="col-panel-title">Textes à comparer</h2>
@@ -43,12 +42,14 @@ export default function HomePage() {
           </label>
         </div>
 
-        <button
-          className="btn-primary btn-full"
-          onClick={handleCalculate}
-          disabled={!canCalculate}
-        >
-          {loading ? <><span className="spinner" /> Calcul en cours…</> : 'Calculer la similarité'}
+        <button className="btn-primary btn-full" onClick={handleCalculate} disabled={!canCalculate}>
+          {loading ? (
+            <>
+              <span className="spinner" /> Calcul en cours…
+            </>
+          ) : (
+            "Calculer la similarité"
+          )}
         </button>
 
         {error && (
@@ -69,7 +70,10 @@ export default function HomePage() {
               <p className="dim-note">{result.vector1.length} dimensions</p>
             </>
           ) : (
-            <ColPlaceholder icon="📊" text="Le score de similarité apparaîtra ici après le calcul." />
+            <ColPlaceholder
+              icon="📊"
+              text="Le score de similarité apparaîtra ici après le calcul."
+            />
           )}
         </div>
       </section>
@@ -89,7 +93,6 @@ export default function HomePage() {
           )}
         </div>
       </section>
-
     </div>
-  )
+  );
 }

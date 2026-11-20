@@ -7,13 +7,13 @@ export default function PedagogySection() {
         <div className="pedagogy-text">
           <h3>Définition</h3>
           <p>
-            La <strong>similarité cosinus</strong> mesure le cosinus de l'angle θ entre deux vecteurs
-            dans un espace de haute dimension. Elle vaut :
+            La <strong>similarité cosinus</strong> mesure le cosinus de l'angle θ entre deux
+            vecteurs dans un espace de haute dimension. Elle vaut :
           </p>
 
           <div className="formula-box">
             <div className="formula">
-              cos(θ) ={' '}
+              cos(θ) ={" "}
               <span className="fraction">
                 <span className="numerator">A · B</span>
                 <span className="denominator">‖A‖ × ‖B‖</span>
@@ -22,7 +22,7 @@ export default function PedagogySection() {
           </div>
 
           <p>
-            Où <strong>A · B</strong> est le produit scalaire des deux vecteurs, et{' '}
+            Où <strong>A · B</strong> est le produit scalaire des deux vecteurs, et{" "}
             <strong>‖A‖</strong>, <strong>‖B‖</strong> leurs normes euclidiennes.
           </p>
 
@@ -44,13 +44,13 @@ export default function PedagogySection() {
           <h3>Pourquoi les embeddings ?</h3>
           <p>
             Un modèle d'embedding transforme chaque texte en un vecteur dense de haute dimension
-            (souvent 768 à 3072 valeurs). Les textes de sens proches produisent des vecteurs orientés
-            dans la même direction — d'où une similarité cosinus élevée.
+            (souvent 768 à 3072 valeurs). Les textes de sens proches produisent des vecteurs
+            orientés dans la même direction — d'où une similarité cosinus élevée.
           </p>
           <p>
-            La norme du vecteur (longueur) dépend du texte mais <em>n'influe pas</em> sur le cosinus :
-            seule la direction compte. C'est ce qui rend la similarité cosinus robuste aux différences
-            de longueur entre textes.
+            La norme du vecteur (longueur) dépend du texte mais <em>n'influe pas</em> sur le cosinus
+            : seule la direction compte. C'est ce qui rend la similarité cosinus robuste aux
+            différences de longueur entre textes.
           </p>
         </div>
 
@@ -67,42 +67,40 @@ export default function PedagogySection() {
       <div className="formula-detail">
         <h3>Formule développée</h3>
         <div className="formula-code">
-          <code>
-            cos(θ) = (Σ Aᵢ·Bᵢ) / (√(Σ Aᵢ²) × √(Σ Bᵢ²))
-          </code>
+          <code>cos(θ) = (Σ Aᵢ·Bᵢ) / (√(Σ Aᵢ²) × √(Σ Bᵢ²))</code>
         </div>
         <p>
-          La somme porte sur toutes les <em>n</em> dimensions du vecteur (ex. <em>n</em> = 1536 pour{' '}
+          La somme porte sur toutes les <em>n</em> dimensions du vecteur (ex. <em>n</em> = 1536 pour{" "}
           <code>text-embedding-3-small</code>).
         </p>
       </div>
     </section>
-  )
+  );
 }
 
 function SchematicDiagram() {
-  const W = 260
-  const H = 220
-  const CX = 60
-  const CY = 165
+  const W = 260;
+  const H = 220;
+  const CX = 60;
+  const CY = 165;
 
   // Fixed schematic vectors (not computed from real data)
-  const A = { x: 160, y: -90 } // upper right
-  const B = { x: 120, y: -150 } // more vertical
+  const A = { x: 160, y: -90 }; // upper right
+  const B = { x: 120, y: -150 }; // more vertical
 
-  const arcR = 48
-  const thetaA = Math.atan2(-A.y, A.x)
-  const thetaB = Math.atan2(-B.y, B.x)
+  const arcR = 48;
+  const thetaA = Math.atan2(-A.y, A.x);
+  const thetaB = Math.atan2(-B.y, B.x);
 
   function polarToSVG(angle: number, r: number): [number, number] {
-    return [CX + r * Math.cos(angle), CY + r * Math.sin(-angle)]
+    return [CX + r * Math.cos(angle), CY + r * Math.sin(-angle)];
   }
 
-  const [arcAx, arcAy] = polarToSVG(thetaA, arcR)
-  const [arcBx, arcBy] = polarToSVG(thetaB, arcR)
+  const [arcAx, arcAy] = polarToSVG(thetaA, arcR);
+  const [arcBx, arcBy] = polarToSVG(thetaB, arcR);
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ maxWidth: W, display: 'block' }}>
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ maxWidth: W, display: "block" }}>
       <defs>
         <marker id="pd-arrow-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
           <path d="M0,0 L0,6 L8,3 z" fill="#3b82f6" />
@@ -168,7 +166,14 @@ function SchematicDiagram() {
         strokeWidth="2.5"
         markerEnd="url(#pd-arrow-a)"
       />
-      <text x={CX + A.x + 8} y={CY + A.y + 4} fontSize="14" fontWeight="700" fill="#3b82f6" fontFamily="system-ui">
+      <text
+        x={CX + A.x + 8}
+        y={CY + A.y + 4}
+        fontSize="14"
+        fontWeight="700"
+        fill="#3b82f6"
+        fontFamily="system-ui"
+      >
         A
       </text>
 
@@ -182,7 +187,14 @@ function SchematicDiagram() {
         strokeWidth="2.5"
         markerEnd="url(#pd-arrow-b)"
       />
-      <text x={CX + B.x + 6} y={CY + B.y - 4} fontSize="14" fontWeight="700" fill="#f97316" fontFamily="system-ui">
+      <text
+        x={CX + B.x + 6}
+        y={CY + B.y - 4}
+        fontSize="14"
+        fontWeight="700"
+        fill="#f97316"
+        fontFamily="system-ui"
+      >
         B
       </text>
 
@@ -206,5 +218,5 @@ function SchematicDiagram() {
         ‖B‖·cos(θ)
       </text>
     </svg>
-  )
+  );
 }

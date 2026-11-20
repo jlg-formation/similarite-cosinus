@@ -1,14 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { HashRouter, Route, Routes } from 'react-router-dom'
-import './index.css'
-import Layout from './App'
-import { AppProvider } from './context/AppContext'
-import HomePage from './pages/HomePage'
-import ConfigPage from './pages/ConfigPage'
-import DocsPage from './pages/DocsPage'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { HashRouter, Route, Routes } from "react-router-dom";
+import "./index.css";
+import Layout from "./App";
+import { AppProvider } from "./context/AppContext";
+import HomePage from "./pages/HomePage";
+import ConfigPage from "./pages/ConfigPage";
+import DocsPage from "./pages/DocsPage";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HashRouter>
       <AppProvider>
@@ -22,4 +22,4 @@ createRoot(document.getElementById('root')!).render(
       </AppProvider>
     </HashRouter>
   </StrictMode>,
-)
+);
